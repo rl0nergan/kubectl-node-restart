@@ -102,7 +102,7 @@ function wait_for_job_completion() {
   pod=$1
   i=0
   while [[ $i -lt $restartdeadline ]]; do
-    status=$(kubectl get job $pod -n kube-system -o "jsonpath={.status.succeeded}" $context 2> /dev/null)
+    status=$(kubectl get job $pod -n kube-system -o "jsonpath={.status.unknown}" $context 2> /dev/null)
     if [[ $status -gt 0 ]]; then
       echo "Restart complete after $i seconds"
       break
