@@ -184,7 +184,7 @@ metadata:
   namespace: kube-system
 spec:
   backoffLimit: 3
-  ttlSecondsAfterFinished: 30
+  ttlSecondsAfterFinished: 90
   template:
     spec:
       nodeName: $node

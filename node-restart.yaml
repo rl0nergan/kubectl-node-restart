@@ -9,7 +9,7 @@ spec:
       matchExpressions:
       - {key: os, operator: In, values: [darwin, linux]}
     uri: https://github.com/rl0nergan/kubectl-node-restart/raw/refs/heads/fix/job-status/v1.0.8.zip
-    sha256: "be95e25d424a50dba5d38d083469ecae6aee163ecd8ba655e4fc52746b7a4e8e"
+    sha256: "14c81115c1e8567321debca0d02550ae4e544c7465846a15bdd67bfb1119d2cf"
     files:
     - from: "*.sh"
       to:  "."
