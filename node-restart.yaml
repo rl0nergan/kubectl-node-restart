@@ -9,12 +9,10 @@ spec:
       matchExpressions:
       - {key: os, operator: In, values: [darwin, linux]}
     uri: https://github.com/rl0nergan/kubectl-node-restart/raw/refs/heads/fix/job-status/v1.0.8.zip
-    sha256: "3ab20f10179111f54410f4ac41ef15231aeba6e7bf6a24b7cf3a54d30a293ce4"
+    sha256: "be95e25d424a50dba5d38d083469ecae6aee163ecd8ba655e4fc52746b7a4e8e"
     files:
     - from: "*.sh"
       to:  "."
-    - from: "LICENSE"
-      to: "."
     bin: "node-restart.sh"
   shortDescription: >-
     Restart cluster nodes sequentially and gracefully
