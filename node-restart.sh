@@ -102,7 +102,7 @@ function wait_for_job_completion() {
   pod=$1
   i=0
   while [[ $i -lt $restartdeadline ]]; do
-    status=$(kubectl get job $pod -n kube-system -o "jsonpath={.status.unknown}" $context 2> /dev/null)
+    status=$(kubectl get job $pod -n kube-system -o "jsonpath={.status.succeeded}" $context 2> /dev/null)
     if [[ $status -gt 0 ]]; then
       echo "Restart complete after $i seconds"
       break
@@ -196,7 +196,7 @@ spec:
       - name: $pod
         image: $image
         command: [ "nsenter", "--target", "1", "--mount", "--uts", "--ipc", "--pid", "--", "bash", "-c" ]
-        args: [ "if [ -f /node-restart-flag ]; then rm /node-restart-flag && exit 0; else $rebootcommand && exit 1; fi" ]
+        args: [ "if [ -f /node-restart-flag ]; then rm /node-restart-flag && exit 0; else $rebootcommand && exit 0; fi" ]
         securityContext:
           privileged: true
       restartPolicy: Never
