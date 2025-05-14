@@ -170,8 +170,14 @@ for node in $nodes; do
       kubectl drain "$node" --ignore-daemonsets --delete-emptydir-data --force $context
       drain_status=$?
       if [[ $drain_status -ne 0 ]]; then
-        echo -e "${blue}Error draining node $node. Retrying in 30s...${nocolor}"
+        echo -e "${blue}Error draining node $node. Waiting for teleport to be ready before retrying...${nocolor}"
         sleep 30
+        teleport_auth_status=""
+        while [[ $teleport_auth_status != "True" ]]; do
+          teleport_auth_status=$(kubectl get pods -n teleport-cluster -l app.kubernetes.io/component=auth -ojsonpath='{.items[*].status.conditions[?(.type=="Ready")].status}' $context 2> /dev/null)
+          echo "Teleport auth ready: $teleport_auth_status"
+          sleep 10
+        done
         kubectl drain "$node" --ignore-daemonsets --delete-emptydir-data --force $context
       fi
     fi
