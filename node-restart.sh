@@ -235,6 +235,7 @@ EOT
   else
     sleep $uncordondelay
     kubectl uncordon "$node" $context
+    kubectl label node "$node" reboot-required- $context
     kubectl delete job $pod -n kube-system $context
     [ "$node" != "${nodes##* }" ] && sleep $nodesleep
   fi
