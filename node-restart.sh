@@ -168,6 +168,12 @@ for node in $nodes; do
       echo "kubectl drain $node --ignore-daemonsets --delete-emptydir-data --force $context"
     else
       kubectl drain "$node" --ignore-daemonsets --delete-emptydir-data --force $context
+      drain_status=$?
+      if [[ $drain_status -ne 0 ]]; then
+        echo -e "${blue}Error draining node $node. Retrying in 30s...${nocolor}"
+        sleep 30
+        kubectl drain "$node" --ignore-daemonsets --delete-emptydir-data --force $context
+      fi
     fi
   fi
 
